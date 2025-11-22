@@ -32,7 +32,28 @@ export const translations = {
         { title: 'Content Strategy', desc: 'Storytelling that converts. We craft content that resonates with your target demographic.' },
         { title: 'Data Analytics', desc: 'Turn numbers into actionable insights with our comprehensive analytics reporting.' },
         { title: 'Conversion Optimization', desc: 'Turn visitors into customers. We optimize every step of the user journey.' }
-      ]
+      ],
+      modal: {
+        seo: {
+          getReport: 'Get Full Report',
+          reportTitle: 'Email Your Full Report',
+          reportDesc: 'We have generated a detailed 15-page analysis of your website. Enter your email to receive the PDF instantly.',
+          emailLabel: 'Business Email',
+          sendBtn: 'Send Report PDF',
+          successTitle: 'Report Sent!',
+          successDesc: 'Please check your inbox for the PDF report.',
+          back: 'Back to Analysis'
+        },
+        ppc: {
+          startBtn: 'Start Campaign',
+          recalcBtn: 'Recalculate',
+          startTitle: 'Ready to Scale?',
+          startDesc: 'Our team can setup this campaign structure for you within 24 hours. Send us a request to get started.',
+          reqBtn: 'Request Campaign Setup',
+          successTitle: 'Request Received',
+          successDesc: 'Our ad specialists will review your budget and contact you shortly.'
+        }
+      }
     },
     results: {
       heading: 'Proven Results backed by',
@@ -125,7 +146,10 @@ export const translations = {
         sending: 'Sending...',
         successTitle: 'Message Sent!',
         successDesc: 'Thank you for reaching out. Our team will get back to you within 24 hours with your personalized audit.',
-        sendAnother: 'Send another message'
+        emailSentTo: 'Confirmation sent to:',
+        sendAnother: 'Send another message',
+        enterprisePrefill: 'I am interested in implementing custom AI solutions across my business. Please provide more information about your Enterprise services.',
+        quotePrefill: 'I would like to request a free quote for your digital marketing services. Please analyze my business needs.'
       }
     },
     footer: {
@@ -233,11 +257,33 @@ export const translations = {
       subheading: 'Các giải pháp kỹ thuật số toàn diện được thiết kế để nâng tầm thương hiệu của bạn trong một thị trường đông đúc.',
       items: [
         { title: 'Tối ưu hóa SEO', desc: 'Thống trị thứ hạng tìm kiếm với các chiến lược SEO dựa trên dữ liệu được thiết kế cho tăng trưởng dài hạn.' },
-        { title: 'Chiến dịch PPC', desc: 'Tối đa hóa ROI với các chiến dịch Trả tiền theo nhấp chuột được nhắm mục tiêu chính xác trên Google và Mạng xã hội.' }, { title: 'Tiếp thị Mạng xã hội', desc: 'Xây dựng cộng đồng trung thành và thu hút khán giả của bạn bằng nội dung xã hội hấp dẫn.' },
+        { title: 'Chiến dịch PPC', desc: 'Tối đa hóa ROI với các chiến dịch Trả tiền theo nhấp chuột được nhắm mục tiêu chính xác trên Google và Mạng xã hội.' },
+        { title: 'Tiếp thị Mạng xã hội', desc: 'Xây dựng cộng đồng trung thành và thu hút khán giả của bạn bằng nội dung xã hội hấp dẫn.' },
         { title: 'Chiến lược nội dung', desc: 'Kể chuyện để chuyển đổi. Chúng tôi tạo ra nội dung cộng hưởng với đối tượng mục tiêu của bạn.' },
         { title: 'Phân tích dữ liệu', desc: 'Biến các con số thành thông tin chi tiết có thể hành động với báo cáo phân tích toàn diện của chúng tôi.' },
         { title: 'Tối ưu hóa chuyển đổi', desc: 'Biến khách truy cập thành khách hàng. Chúng tôi tối ưu hóa từng bước của hành trình người dùng.' }
-      ]
+      ],
+      modal: {
+        seo: {
+          getReport: 'Nhận báo cáo đầy đủ',
+          reportTitle: 'Gửi báo cáo qua Email',
+          reportDesc: 'Chúng tôi đã tạo một bản phân tích chi tiết dài 15 trang về trang web của bạn. Nhập email để nhận file PDF ngay lập tức.',
+          emailLabel: 'Email doanh nghiệp',
+          sendBtn: 'Gửi báo cáo PDF',
+          successTitle: 'Đã gửi báo cáo!',
+          successDesc: 'Vui lòng kiểm tra hộp thư đến của bạn để nhận bản kiểm toán SEO.',
+          back: 'Quay lại phân tích'
+        },
+        ppc: {
+          startBtn: 'Bắt đầu chiến dịch',
+          recalcBtn: 'Tính lại',
+          startTitle: 'Sẵn sàng mở rộng quy mô?',
+          startDesc: 'Đội ngũ của chúng tôi có thể thiết lập cấu trúc chiến dịch này cho bạn trong vòng 24 giờ. Gửi yêu cầu để bắt đầu.',
+          reqBtn: 'Yêu cầu thiết lập chiến dịch',
+          successTitle: 'Đã nhận yêu cầu',
+          successDesc: 'Các chuyên gia quảng cáo của chúng tôi sẽ xem xét ngân sách của bạn và liên hệ sớm.'
+        }
+      }
     },
     results: {
       heading: 'Kết quả được chứng minh bằng',
@@ -328,7 +374,10 @@ export const translations = {
         sending: 'Đang gửi...',
         successTitle: 'Đã gửi tin nhắn!',
         successDesc: 'Cảm ơn bạn đã liên hệ. Nhóm của chúng tôi sẽ liên hệ lại với bạn trong vòng 24 giờ với bản kiểm toán được cá nhân hóa.',
-        sendAnother: 'Gửi tin nhắn khác'
+        emailSentTo: 'Xác nhận đã được gửi đến:',
+        sendAnother: 'Gửi tin nhắn khác',
+        enterprisePrefill: 'Tôi quan tâm đến việc triển khai các giải pháp AI tùy chỉnh cho doanh nghiệp của mình. Vui lòng cung cấp thêm thông tin về các dịch vụ Doanh nghiệp của bạn.',
+        quotePrefill: 'Tôi muốn yêu cầu báo giá miễn phí cho các dịch vụ tiếp thị kỹ thuật số của bạn. Vui lòng phân tích nhu cầu kinh doanh của tôi.'
       }
     },
     footer: {
@@ -408,18 +457,28 @@ export const translations = {
       }
     }
   },
-  // ... other languages
   fr: {
-    // ... (existing translations)
     nav: { services: 'Services', results: 'Résultats', aiTools: 'Outils IA', testimonials: 'Témoignages', contact: 'Contact', getAudit: 'Audit Gratuit' },
+    // ... (rest of FR translations would ideally be here, kept minimal for brevity as in original)
     aiTools: {
-        // ...
+        badge: 'Propulsé par Gemini 2.5',
+        heading: 'Suite Marketing IA',
+        subheading: 'Boostez votre stratégie avec nos outils intelligents. Créez du contenu et des idées en quelques secondes.',
+        tabs: {
+            copy: 'Générateur de Texte',
+            ideas: 'Idées Réseaux Sociaux',
+            seo: 'Contenu SEO'
+        },
         form: {
-            // ...
             productName: 'Nom du produit',
             desc: 'Description',
-            platform: 'Plateforme', // Added
+            platform: 'Plateforme', 
             tone: 'Ton',
+            topic: 'Sujet',
+            audience: 'Audience Cible',
+            keywords: 'Mots-clés Cibles',
+            tryExample: 'Essayer un exemple',
+            clear: 'Effacer',
             generateCopy: 'Générer le texte',
             generateImage: 'Générer l\'image',
             generateIdeas: 'Générer des idées',
@@ -430,8 +489,35 @@ export const translations = {
         placeholder: {
           label: 'Espace Pub Visuel'
         },
-        // ...
+        advanced: {
+            title: 'Paramètres Avancés',
+            length: 'Longueur',
+            creativity: 'Créativité',
+            negative: 'Mots-clés Négatifs',
+            negativePlaceholder: 'ex. pas cher, gratuit',
+            levels: {
+                low: 'Faible',
+                medium: 'Moyenne',
+                high: 'Élevée',
+                short: 'Court',
+                long: 'Long'
+            }
+        },
+        enterprise: {
+            heading: 'Implémenter l\'IA dans toute votre entreprise ?',
+            desc: 'Nos outils gratuits ne sont qu\'un aperçu. ezAI construit des moteurs IA sur mesure formés sur vos données pour automatiser 80% de vos tâches.',
+            cta: 'Explorer les Solutions Entreprise'
+        }
     },
-    // ...
+    contact: {
+      // ... existing contact translations
+      heading: "Développons votre entreprise",
+      subheading: "Prêt à surpasser la concurrence ? Planifiez votre audit gratuit.",
+      info: { email: 'Email', call: 'Appeler', visit: 'Visiter' },
+      form: {
+        firstName: 'Prénom', lastName: 'Nom', email: 'Email', website: 'Site Web', message: 'Message', submit: 'Obtenir une proposition', sending: 'Envoi...', successTitle: 'Envoyé !', successDesc: 'Merci. Nous vous répondrons sous 24h.', emailSentTo: 'Confirmation envoyée à :', sendAnother: 'Envoyer un autre message',
+        enterprisePrefill: 'Je suis intéressé par l\'implémentation de solutions IA personnalisées pour mon entreprise. Veuillez me fournir plus d\'informations.'
+      }
+    }
   }
 };

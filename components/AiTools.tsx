@@ -940,8 +940,13 @@ export const AiTools: React.FC = () => {
                 <p className="text-lg text-theme-text-muted max-w-3xl mx-auto mb-10 leading-relaxed">
                     {t('aiTools.enterprise.desc')}
                 </p>
-                <a 
-                    href="#contact" 
+                <button 
+                    onClick={(e) => {
+                        e.preventDefault();
+                        const message = t('contact.form.enterprisePrefill') || "I'm interested in learning more about your Enterprise AI Solutions.";
+                        const event = new CustomEvent('prefill-contact-form', { detail: { message } });
+                        window.dispatchEvent(event);
+                    }}
                     className={`inline-flex items-center px-8 py-4 rounded-lg font-bold text-lg transition-all shadow-lg transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-theme-primary ${
                         theme === 'dark' 
                         ? 'bg-white text-slate-900 hover:bg-indigo-50 hover:shadow-white/20' 
@@ -950,7 +955,7 @@ export const AiTools: React.FC = () => {
                 >
                     {t('aiTools.enterprise.cta')}
                     <ArrowRight className="ml-2 w-5 h-5" />
-                </a>
+                </button>
             </div>
         </div>
       </div>

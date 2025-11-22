@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Mail, Phone, MapPin, AlertCircle, CheckCircle, Loader2 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -16,6 +16,28 @@ export const Contact: React.FC = () => {
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [submittedData, setSubmittedData] = useState<{name: string, email: string} | null>(null);
+
+  // Listen for remote pre-fill events (e.g. from Enterprise button)
+  useEffect(() => {
+    const handlePrefill = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      if (customEvent.detail && customEvent.detail.message) {
+        setFormData(prev => ({ ...prev, message: customEvent.detail.message }));
+        
+        // Ensure the contact section is in view
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    };
+
+    window.addEventListener('prefill-contact-form', handlePrefill);
+    return () => {
+      window.removeEventListener('prefill-contact-form', handlePrefill);
+    };
+  }, []);
 
   const validateField = (name: string, value: string) => {
     let error = '';
@@ -85,13 +107,27 @@ export const Contact: React.FC = () => {
 
     if (isValid) {
       setIsSubmitting(true);
+      console.log('Sending proposal request to:', formData.email, formData);
+      
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Capture data for the success view before clearing form
+      setSubmittedData({
+        name: formData.firstName,
+        email: formData.email
+      });
+
       setIsSubmitting(false);
       setIsSuccess(true);
       setFormData({ firstName: '', lastName: '', email: '', website: '', message: '' });
       setTouched({});
-      setTimeout(() => setIsSuccess(false), 5000);
+      
+      // Extended timeout to let user read the confirmation
+      setTimeout(() => {
+        setIsSuccess(false);
+        setSubmittedData(null);
+      }, 10000);
     }
   };
 
@@ -154,16 +190,28 @@ export const Contact: React.FC = () => {
           <div className="bg-theme-surface p-8 rounded-3xl border border-theme-border shadow-2xl relative overflow-hidden">
             {isSuccess && (
               <div className="absolute inset-0 bg-theme-surface z-10 flex flex-col items-center justify-center text-center p-8 animate-fade-in">
-                <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mb-6">
+                <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(34,197,94,0.3)]">
                   <CheckCircle className="w-10 h-10 text-green-500" />
                 </div>
                 <h3 className="text-2xl font-bold text-theme-text-primary mb-2">{t('contact.form.successTitle')}</h3>
-                <p className="text-theme-text-muted">
+                <p className="text-theme-text-muted mb-6 max-w-md">
                   {t('contact.form.successDesc')}
                 </p>
+
+                {submittedData && (
+                  <div className="bg-theme-secondary p-4 rounded-xl border border-theme-border mb-8 max-w-sm w-full animate-fade-in-up">
+                     <p className="text-sm text-theme-text-secondary mb-1">
+                        {t('contact.form.emailSentTo') || 'Confirmation sent to:'}
+                     </p>
+                     <p className="text-indigo-500 font-bold text-lg truncate" title={submittedData.email}>
+                        {submittedData.email}
+                     </p>
+                  </div>
+                )}
+
                 <button 
                   onClick={() => setIsSuccess(false)}
-                  className="mt-8 text-indigo-500 hover:text-indigo-600 font-medium transition-colors focus:outline-none focus:underline"
+                  className="text-indigo-500 hover:text-indigo-600 font-medium transition-colors focus:outline-none focus:underline flex items-center"
                 >
                   {t('contact.form.sendAnother')}
                 </button>
