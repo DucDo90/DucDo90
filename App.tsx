@@ -28,7 +28,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen bg-theme-primary text-theme-text-primary selection:bg-indigo-500 selection:text-white transition-colors duration-300">
       <Header scrolled={scrolled} />
       <main>
         <Hero />

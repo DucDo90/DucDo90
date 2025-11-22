@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Bot } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { generateChatResponse } from '../services/geminiService';
+import { useTheme } from '../contexts/ThemeContext';
 
 interface Message {
   id: number;
@@ -9,10 +11,12 @@ interface Message {
 }
 
 export const ChatBot: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const { theme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [inputText, setInputText] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
   
   // Initial message effect
   useEffect(() => {
@@ -29,31 +33,46 @@ export const ChatBot: React.FC = () => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, isOpen]);
+  }, [messages, isOpen, isTyping]);
 
-  const handleSendMessage = (e: React.FormEvent) => {
+  const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputText.trim()) return;
 
+    const userText = inputText;
+    
     // Add user message
     const newUserMessage: Message = {
       id: Date.now(),
-      text: inputText,
+      text: userText,
       sender: 'user'
     };
 
     setMessages(prev => [...prev, newUserMessage]);
     setInputText('');
+    setIsTyping(true);
 
-    // Simulate bot response (Placeholder logic)
-    setTimeout(() => {
-      const botResponse: Message = {
-        id: Date.now() + 1,
-        text: t('chat.response'),
-        sender: 'bot'
-      };
-      setMessages(prev => [...prev, botResponse]);
-    }, 1000);
+    try {
+        // Call Gemini API
+        const responseText = await generateChatResponse(messages, userText, language);
+        
+        const botResponse: Message = {
+            id: Date.now() + 1,
+            text: responseText,
+            sender: 'bot'
+        };
+        setMessages(prev => [...prev, botResponse]);
+    } catch (error) {
+        console.error("Failed to get response", error);
+        const errorResponse: Message = {
+            id: Date.now() + 1,
+            text: "Sorry, I'm having trouble connecting right now.",
+            sender: 'bot'
+        };
+        setMessages(prev => [...prev, errorResponse]);
+    } finally {
+        setIsTyping(false);
+    }
   };
 
   return (
@@ -62,7 +81,9 @@ export const ChatBot: React.FC = () => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`fixed bottom-8 right-8 z-50 p-4 rounded-full shadow-[0_0_20px_rgba(99,102,241,0.5)] transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
-          isOpen ? 'bg-slate-800 text-white rotate-90' : 'bg-indigo-600 text-white'
+          isOpen 
+            ? 'bg-theme-surface text-theme-text-primary border border-theme-border rotate-90' 
+            : 'bg-indigo-600 text-white'
         }`}
         aria-label={isOpen ? "Close chat" : "Open chat"}
       >
@@ -71,7 +92,7 @@ export const ChatBot: React.FC = () => {
 
       {/* Chat Window */}
       <div 
-        className={`fixed bottom-24 right-8 z-50 w-[calc(100vw-2rem)] sm:w-[380px] bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 origin-bottom-right ${
+        className={`fixed bottom-24 right-8 z-50 w-[calc(100vw-2rem)] sm:w-[380px] bg-theme-surface border border-theme-border rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 origin-bottom-right ${
           isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4 pointer-events-none'
         }`}
       >
@@ -92,40 +113,53 @@ export const ChatBot: React.FC = () => {
         </div>
 
         {/* Messages Area */}
-        <div className="h-80 overflow-y-auto p-4 space-y-4 bg-slate-900/95 custom-scrollbar">
+        <div className="h-80 overflow-y-auto p-4 space-y-4 bg-theme-surface/95 custom-scrollbar">
            {messages.map((msg) => (
              <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                <div 
-                 className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${
+                 className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed shadow-sm ${
                    msg.sender === 'user' 
-                     ? 'bg-indigo-600 text-white rounded-br-none shadow-lg shadow-indigo-900/20' 
-                     : 'bg-slate-800 text-slate-200 border border-slate-700 rounded-bl-none'
+                     ? 'bg-indigo-600 text-white rounded-br-none shadow-indigo-500/20' 
+                     : 'bg-theme-secondary text-theme-text-primary border border-theme-border rounded-bl-none'
                  }`}
                >
                  {msg.text}
                </div>
              </div>
            ))}
+           
+           {/* Typing Indicator */}
+           {isTyping && (
+             <div className="flex justify-start">
+               <div className="bg-theme-secondary p-3 rounded-2xl rounded-bl-none border border-theme-border flex space-x-1">
+                 <div className="w-2 h-2 bg-slate-500 rounded-full animate-bounce"></div>
+                 <div className="w-2 h-2 bg-slate-500 rounded-full animate-bounce delay-75"></div>
+                 <div className="w-2 h-2 bg-slate-500 rounded-full animate-bounce delay-150"></div>
+               </div>
+             </div>
+           )}
+           
            <div ref={messagesEndRef} />
         </div>
 
         {/* Input Area */}
-        <form onSubmit={handleSendMessage} className="p-4 bg-slate-800 border-t border-slate-700 flex items-center gap-2">
+        <form onSubmit={handleSendMessage} className="p-4 bg-theme-surface border-t border-theme-border flex items-center gap-2">
            <input
              type="text"
              value={inputText}
              onChange={(e) => setInputText(e.target.value)}
              placeholder={t('chat.placeholder')}
-             className="flex-1 bg-slate-900 border border-slate-700 rounded-full px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all placeholder:text-slate-500"
+             disabled={isTyping}
+             className="flex-1 bg-theme-input border border-theme-border rounded-full px-4 py-2.5 text-sm text-theme-text-primary focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all placeholder:text-theme-text-muted disabled:opacity-50"
            />
            <button 
              type="submit" 
              className={`p-2.5 rounded-full text-white transition-all duration-200 flex items-center justify-center ${
-                inputText.trim() 
+                inputText.trim() && !isTyping
                   ? 'bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-500/25 transform hover:scale-105' 
-                  : 'bg-slate-700 text-slate-400 cursor-not-allowed'
+                  : 'bg-theme-secondary text-theme-text-muted cursor-not-allowed'
              }`}
-             disabled={!inputText.trim()}
+             disabled={!inputText.trim() || isTyping}
              aria-label="Send message"
            >
              <Send className="w-4 h-4" />

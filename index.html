@@ -14,8 +14,19 @@
               sans: ['Inter', 'Noto Sans Lao', 'Noto Sans Khmer', 'sans-serif'],
             },
             colors: {
+              theme: {
+                primary: 'rgb(var(--bg-primary) / <alpha-value>)',
+                secondary: 'rgb(var(--bg-secondary) / <alpha-value>)',
+                surface: 'rgb(var(--bg-surface) / <alpha-value>)',
+                input: 'rgb(var(--bg-input) / <alpha-value>)',
+                text: {
+                  primary: 'rgb(var(--text-primary) / <alpha-value>)',
+                  secondary: 'rgb(var(--text-secondary) / <alpha-value>)',
+                  muted: 'rgb(var(--text-muted) / <alpha-value>)',
+                },
+                border: 'rgb(var(--border-color) / <alpha-value>)',
+              },
               brand: {
-                dark: '#0f172a',
                 primary: '#6366f1',
                 accent: '#8b5cf6',
                 success: '#10b981'
@@ -41,22 +52,51 @@
       }
     </script>
     <style>
+      :root {
+        /* Dark Mode (Default) */
+        --bg-primary: 15 23 42;   /* slate-900 */
+        --bg-secondary: 2 6 23;   /* slate-950 */
+        --bg-surface: 30 41 59;   /* slate-800 */
+        --bg-input: 15 23 42;     /* slate-900 */
+        
+        --text-primary: 255 255 255;
+        --text-secondary: 203 213 225; /* slate-300 */
+        --text-muted: 148 163 184;     /* slate-400 */
+        
+        --border-color: 51 65 85;     /* slate-700 */
+      }
+
+      [data-theme='light'] {
+        /* Light Mode */
+        --bg-primary: 255 255 255;    /* white */
+        --bg-secondary: 248 250 252;  /* slate-50 */
+        --bg-surface: 255 255 255;    /* white */
+        --bg-input: 241 245 249;      /* slate-100 */
+        
+        --text-primary: 15 23 42;     /* slate-900 */
+        --text-secondary: 51 65 85;   /* slate-700 */
+        --text-muted: 100 116 139;    /* slate-500 */
+        
+        --border-color: 226 232 240;  /* slate-200 */
+      }
+
       html {
         scroll-behavior: smooth;
       }
       body {
-        background-color: #0f172a;
-        color: #f8fafc;
+        background-color: rgb(var(--bg-primary));
+        color: rgb(var(--text-primary));
+        transition: background-color 0.3s, color 0.3s;
       }
       /* Custom Scrollbar */
       ::-webkit-scrollbar {
         width: 10px;
       }
       ::-webkit-scrollbar-track {
-        background: #1e293b;
+        background: rgb(var(--bg-secondary));
       }
       ::-webkit-scrollbar-thumb {
-        background: #475569;
+        background: rgb(var(--border-color));
         border-radius: 5px;
       }
       ::-webkit-scrollbar-thumb:hover {

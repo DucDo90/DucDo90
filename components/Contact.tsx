@@ -96,74 +96,74 @@ export const Contact: React.FC = () => {
   };
 
   const getInputClasses = (fieldName: string) => {
-    const baseClasses = "w-full bg-slate-950 border rounded-lg px-4 py-3 text-white outline-none transition-all";
+    const baseClasses = "w-full bg-theme-input border rounded-lg px-4 py-3 text-theme-text-primary outline-none transition-all";
     if (touched[fieldName] && errors[fieldName]) {
       return `${baseClasses} border-red-500 focus:ring-2 focus:ring-red-500/50`;
     }
     if (touched[fieldName] && !errors[fieldName]) {
       return `${baseClasses} border-green-500/50 focus:ring-2 focus:ring-green-500/50`;
     }
-    return `${baseClasses} border-slate-800 focus:ring-2 focus:ring-indigo-500`;
+    return `${baseClasses} border-theme-border focus:ring-2 focus:ring-indigo-500`;
   };
 
   return (
-    <section id="contact" className="py-24 bg-slate-950 border-t border-slate-900">
+    <section id="contact" className="py-24 bg-theme-secondary border-t border-theme-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="lg:grid lg:grid-cols-2 gap-16">
           {/* Contact Info */}
           <div className="mb-12 lg:mb-0">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">{t('contact.heading')}</h2>
-            <p className="text-slate-400 text-lg mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-theme-text-primary mb-6">{t('contact.heading')}</h2>
+            <p className="text-theme-text-muted text-lg mb-10">
               {t('contact.subheading')}
             </p>
             
             <div className="space-y-6">
               <div className="flex items-start">
-                <div className="bg-slate-900 p-3 rounded-lg mr-4 text-indigo-500 border border-slate-800">
+                <div className="bg-theme-surface p-3 rounded-lg mr-4 text-indigo-500 border border-theme-border">
                   <Mail className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="text-white font-medium">{t('contact.info.email')}</h4>
-                  <p className="text-slate-400">hello@ezaidigitalmarketing.com</p>
+                  <h4 className="text-theme-text-primary font-medium">{t('contact.info.email')}</h4>
+                  <p className="text-theme-text-muted">hello@ezaidigitalmarketing.com</p>
                 </div>
               </div>
               
               <div className="flex items-start">
-                 <div className="bg-slate-900 p-3 rounded-lg mr-4 text-indigo-500 border border-slate-800">
+                 <div className="bg-theme-surface p-3 rounded-lg mr-4 text-indigo-500 border border-theme-border">
                   <Phone className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="text-white font-medium">{t('contact.info.call')}</h4>
-                  <p className="text-slate-400">+1 (555) 123-4567</p>
+                  <h4 className="text-theme-text-primary font-medium">{t('contact.info.call')}</h4>
+                  <p className="text-theme-text-muted">+1 (555) 123-4567</p>
                 </div>
               </div>
 
               <div className="flex items-start">
-                 <div className="bg-slate-900 p-3 rounded-lg mr-4 text-indigo-500 border border-slate-800">
+                 <div className="bg-theme-surface p-3 rounded-lg mr-4 text-indigo-500 border border-theme-border">
                   <MapPin className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="text-white font-medium">{t('contact.info.visit')}</h4>
-                  <p className="text-slate-400">100 Tech Boulevard, Silicon Valley, CA</p>
+                  <h4 className="text-theme-text-primary font-medium">{t('contact.info.visit')}</h4>
+                  <p className="text-theme-text-muted">100 Tech Boulevard, Silicon Valley, CA</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Form */}
-          <div className="bg-slate-900 p-8 rounded-3xl border border-slate-800 shadow-2xl relative overflow-hidden">
+          <div className="bg-theme-surface p-8 rounded-3xl border border-theme-border shadow-2xl relative overflow-hidden">
             {isSuccess && (
-              <div className="absolute inset-0 bg-slate-900 z-10 flex flex-col items-center justify-center text-center p-8 animate-fade-in">
+              <div className="absolute inset-0 bg-theme-surface z-10 flex flex-col items-center justify-center text-center p-8 animate-fade-in">
                 <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mb-6">
                   <CheckCircle className="w-10 h-10 text-green-500" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-2">{t('contact.form.successTitle')}</h3>
-                <p className="text-slate-400">
+                <h3 className="text-2xl font-bold text-theme-text-primary mb-2">{t('contact.form.successTitle')}</h3>
+                <p className="text-theme-text-muted">
                   {t('contact.form.successDesc')}
                 </p>
                 <button 
                   onClick={() => setIsSuccess(false)}
-                  className="mt-8 text-indigo-400 hover:text-white font-medium transition-colors focus:outline-none focus:underline"
+                  className="mt-8 text-indigo-500 hover:text-indigo-600 font-medium transition-colors focus:outline-none focus:underline"
                 >
                   {t('contact.form.sendAnother')}
                 </button>
@@ -173,7 +173,7 @@ export const Contact: React.FC = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium text-slate-400 mb-2">{t('contact.form.firstName')}</label>
+                  <label htmlFor="firstName" className="block text-sm font-medium text-theme-text-secondary mb-2">{t('contact.form.firstName')}</label>
                   <input 
                     id="firstName"
                     type="text" 
@@ -185,14 +185,14 @@ export const Contact: React.FC = () => {
                     placeholder="John" 
                   />
                   {touched.firstName && errors.firstName && (
-                    <p className="mt-1 text-xs text-red-400 flex items-center">
+                    <p className="mt-1 text-xs text-red-500 flex items-center">
                       <AlertCircle className="w-3 h-3 mr-1" />
                       {errors.firstName}
                     </p>
                   )}
                 </div>
                 <div>
-                   <label htmlFor="lastName" className="block text-sm font-medium text-slate-400 mb-2">{t('contact.form.lastName')}</label>
+                   <label htmlFor="lastName" className="block text-sm font-medium text-theme-text-secondary mb-2">{t('contact.form.lastName')}</label>
                   <input 
                     id="lastName"
                     type="text" 
@@ -204,7 +204,7 @@ export const Contact: React.FC = () => {
                     placeholder="Doe" 
                   />
                   {touched.lastName && errors.lastName && (
-                    <p className="mt-1 text-xs text-red-400 flex items-center">
+                    <p className="mt-1 text-xs text-red-500 flex items-center">
                       <AlertCircle className="w-3 h-3 mr-1" />
                       {errors.lastName}
                     </p>
@@ -213,7 +213,7 @@ export const Contact: React.FC = () => {
               </div>
               
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-slate-400 mb-2">{t('contact.form.email')}</label>
+                <label htmlFor="email" className="block text-sm font-medium text-theme-text-secondary mb-2">{t('contact.form.email')}</label>
                 <input 
                   id="email"
                   type="email" 
@@ -225,7 +225,7 @@ export const Contact: React.FC = () => {
                   placeholder="john@company.com" 
                 />
                 {touched.email && errors.email && (
-                  <p className="mt-1 text-xs text-red-400 flex items-center">
+                  <p className="mt-1 text-xs text-red-500 flex items-center">
                     <AlertCircle className="w-3 h-3 mr-1" />
                     {errors.email}
                   </p>
@@ -233,7 +233,7 @@ export const Contact: React.FC = () => {
               </div>
 
                <div>
-                <label htmlFor="website" className="block text-sm font-medium text-slate-400 mb-2">{t('contact.form.website')} <span className="text-slate-600">(Optional)</span></label>
+                <label htmlFor="website" className="block text-sm font-medium text-theme-text-secondary mb-2">{t('contact.form.website')} <span className="text-theme-text-muted">(Optional)</span></label>
                 <input 
                   id="website"
                   type="text" 
@@ -245,7 +245,7 @@ export const Contact: React.FC = () => {
                   placeholder="https://company.com" 
                 />
                 {touched.website && errors.website && (
-                  <p className="mt-1 text-xs text-red-400 flex items-center">
+                  <p className="mt-1 text-xs text-red-500 flex items-center">
                     <AlertCircle className="w-3 h-3 mr-1" />
                     {errors.website}
                   </p>
@@ -253,7 +253,7 @@ export const Contact: React.FC = () => {
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-slate-400 mb-2">{t('contact.form.message')}</label>
+                <label htmlFor="message" className="block text-sm font-medium text-theme-text-secondary mb-2">{t('contact.form.message')}</label>
                 <textarea 
                   id="message"
                   rows={4} 
@@ -265,7 +265,7 @@ export const Contact: React.FC = () => {
                   placeholder="..."
                 ></textarea>
                 {touched.message && errors.message && (
-                  <p className="mt-1 text-xs text-red-400 flex items-center">
+                  <p className="mt-1 text-xs text-red-500 flex items-center">
                     <AlertCircle className="w-3 h-3 mr-1" />
                     {errors.message}
                   </p>
@@ -275,7 +275,7 @@ export const Contact: React.FC = () => {
               <button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold py-4 rounded-lg transition-all transform hover:scale-[1.02] shadow-lg disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-900"
+                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold py-4 rounded-lg transition-all transform hover:scale-[1.02] shadow-lg disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-theme-primary"
               >
                 {isSubmitting ? (
                   <>
